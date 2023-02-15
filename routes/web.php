@@ -32,7 +32,7 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::prefix('admin')->group(function(){
-    Route::get('login', [AdminController::class, 'login']);
+    Route::match(['get', 'post'], 'login', [AdminController::class, 'login']);
 
     Route::get('dashboard', [AdminController::class, 'dashboard']);
 });
