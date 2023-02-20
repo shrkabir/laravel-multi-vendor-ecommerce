@@ -34,5 +34,7 @@ require __DIR__.'/auth.php';
 Route::prefix('admin')->group(function(){
     Route::match(['get', 'post'], 'login', [AdminController::class, 'login']);
 
-    Route::get('dashboard', [AdminController::class, 'dashboard']);
+    Route::group(['middleware'=>['admin']], function(){
+        Route::get('dashboard', [AdminController::class, 'dashboard']); 
+    });
 });
