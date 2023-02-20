@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->tinyInteger('type');
-            $table->tinyInteger('vendor_id');
+            $table->tinyInteger('type')->comment('1=super admin');
+            $table->tinyInteger('vendor_id')->nullable();
             $table->string('mobile');
             $table->string('email')->unique();
             $table->text('password');
-            $table->text('image');
+            $table->text('image')->nullable();
             $table->tinyInteger('status');
             $table->timestamps();
         });
