@@ -31,6 +31,11 @@
               </div>
               <h4>Hello! let's get started</h4>
               <h6 class="font-weight-light">Sign in to continue.</h6>
+              @if(Session::has('error_message'))
+              <div class="alert alert-danger">
+                <strong>Error! </strong>{{ Session::get('error_message') }}
+              </div>
+              @endif
               <form class="pt-3" action="{{ url('admin/login') }}" method="POST">
                 @csrf
                 <div class="form-group">

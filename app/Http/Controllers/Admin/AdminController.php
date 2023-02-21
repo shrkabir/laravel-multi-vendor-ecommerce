@@ -12,9 +12,17 @@ class AdminController extends Controller
         if($request->isMethod('post')){
             if(Auth::guard('admin')->attempt(['email'=>$request->email, 'password'=>$request->password, 'status'=>1])){
                 return redirect('admin/dashboard');
+            }else{
+                return redirect('admin/login')->with('error_message', "Invalid username or password.");
             }
         }
         return view('admin.login.login');
+    }
+
+    public function logout(){
+        Auth::guard('admin')->logout();
+
+        return redirect('admin/login');
     }
     
     public function dashboard(){
