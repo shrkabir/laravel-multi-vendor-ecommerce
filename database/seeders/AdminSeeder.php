@@ -21,7 +21,7 @@ class AdminSeeder extends Seeder
             'vendor_id' => NULL,
             'mobile' => '01025874685',
             'email' => 'admin@superadmin.com',
-            'password' => '123456',
+            'password' => '$2y$10$pQtLcLLGXfyC2EgJ8LVwKutpktzpDA/j4lwc10uf6nP4SyvXYP6zy',
             'image' => NULL,
             'status' => 1
         ]);
