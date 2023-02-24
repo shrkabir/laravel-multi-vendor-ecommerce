@@ -31,11 +31,12 @@ Route::middleware('auth')->group(function () {
 
 require __DIR__.'/auth.php';
 
-Route::prefix('admin')->group(function(){
+Route::group(['prefix' =>'admin', 'as' =>'admin.'], function(){
     Route::match(['get', 'post'], 'login', [AdminController::class, 'login']);
 
     Route::group(['middleware'=>['admin']], function(){
         Route::get('logout', [AdminController::class, 'logout']); 
-        Route::get('dashboard', [AdminController::class, 'dashboard']); 
+        Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
+        Route::get('admin-password/edit', [AdminController::class, 'editAdminPassword'])->name('edit-admin-password');
     });
 });

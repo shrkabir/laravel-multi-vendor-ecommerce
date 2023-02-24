@@ -42,4 +42,10 @@ class AdminController extends Controller
     public function dashboard(){
         return view('admin.dashboard.dashboard');
     }
+
+    public function editAdminPassword(){
+        $adminDetails= Auth::guard('admin')->user();
+        // dd($adminDetails);
+        return view('admin.settings.edit_admin_password', compact('adminDetails'));
+    }
 }
