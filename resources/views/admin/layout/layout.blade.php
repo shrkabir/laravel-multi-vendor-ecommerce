@@ -88,6 +88,7 @@
     <!-- Custom js for this page-->
     <script src="{{url('admin')}}/js/dashboard.js"></script>
     <script src="{{url('admin')}}/js/Chart.roundedBarCharts.js"></script>
+    <script src="{{ url('admin/js/custom.js') }}"></script>
     <!-- End custom js for this page-->
 </body>
 

@@ -48,4 +48,8 @@ class AdminController extends Controller
         // dd($adminDetails);
         return view('admin.settings.edit_admin_password', compact('adminDetails'));
     }
+
+    public function checkAdminPassword(Request $request){
+
+    }
 }

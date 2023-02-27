@@ -38,5 +38,6 @@ Route::group(['prefix' =>'admin', 'as' =>'admin.'], function(){
         Route::get('logout', [AdminController::class, 'logout']); 
         Route::get('dashboard', [AdminController::class, 'dashboard'])->name('dashboard');
         Route::get('admin-password/edit', [AdminController::class, 'editAdminPassword'])->name('edit-admin-password');
+        Route::get('check-admin-password', [AdminController::class, 'checkAdminPassword'])->name('check-admin-pass');
     });
 });
