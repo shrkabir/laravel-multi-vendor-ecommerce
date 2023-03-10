@@ -57,4 +57,27 @@
         </div>
     </div>
 </div>
+
+@push('script')
+<!-- <script src="{{ asset('admin/js/custom.js') }}"></script> -->
+
+<script>
+    $(document).ready(function() {
+        $('#current_password').keyup(function() {
+            var currentPassword = $('#current_password').val();
+
+            $.ajax({
+                type: 'POST',
+                url: "{{url('admin/check-admin-password')}}",
+                success: function(response) {
+                    alert(response);
+                },
+                error: function() {
+                    alert("error");
+                }
+            });
+        });
+    });
+</script>
+@endpush
 @endsection

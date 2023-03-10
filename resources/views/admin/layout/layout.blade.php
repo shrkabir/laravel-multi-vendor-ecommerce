@@ -20,6 +20,9 @@
     <link rel="stylesheet" href="{{url('admin')}}/css/vertical-layout-light/style.css">
     <!-- endinject -->
     <link rel="shortcut icon" href="{{url('admin')}}/images/favicon.png" />
+    <!-- plugins:js -->
+    <script src="{{url('admin')}}/vendors/js/vendor.bundle.base.js"></script>
+    <!-- endinject -->
 </head>
 
 <body>
@@ -68,9 +71,7 @@
     </div>
     <!-- container-scroller -->
 
-    <!-- plugins:js -->
-    <script src="{{url('admin')}}/vendors/js/vendor.bundle.base.js"></script>
-    <!-- endinject -->
+    
     <!-- Plugin js for this page -->
     <script src="{{url('admin')}}/vendors/chart.js/Chart.min.js"></script>
     <script src="{{url('admin')}}/vendors/datatables.net/jquery.dataTables.js"></script>
@@ -88,7 +89,8 @@
     <!-- Custom js for this page-->
     <script src="{{url('admin')}}/js/dashboard.js"></script>
     <script src="{{url('admin')}}/js/Chart.roundedBarCharts.js"></script>
-    <script src="{{ url('admin/js/custom.js') }}"></script>
+    
+    @stack('script')
     <!-- End custom js for this page-->
 </body>
 
