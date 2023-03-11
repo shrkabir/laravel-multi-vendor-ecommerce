@@ -34,6 +34,7 @@
                         <div class="form-group">
                             <label for="current_password">Current Password</label>
                             <input type="password" name="current_password" class="form-control" id="current_password" placeholder="Current Password">
+                            <span id="check_current_password"></span>
                         </div>
                         <div class="form-group">
                             <label for="new_password">New Password</label>
@@ -66,11 +67,25 @@
         $('#current_password').keyup(function() {
             var currentPassword = $('#current_password').val();
 
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
             $.ajax({
                 type: 'POST',
                 url: "{{url('admin/check-admin-password')}}",
+                data: {
+                    currentPassword : currentPassword
+                },
                 success: function(response) {
-                    alert(response);
+                    // alert(response);
+                    if(response == "false"){
+                        $('#check_current_password').html("<font color='red'>Current password not matched yet...</font>");
+                    }else if(response == "true"){
+                        $('#check_current_password').html("<font color='green'>Current password matched. Type New Password.</font>");
+                    }
                 },
                 error: function() {
                     alert("error");
