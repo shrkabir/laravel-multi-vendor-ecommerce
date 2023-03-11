@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use App\Models\Admin\Admin\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -55,6 +56,21 @@ class AdminController extends Controller
             return "true";
         }else{
             return "false";
+        }
+    }
+
+    public function updateAdminPassword(Request $request){
+        if(Hash::check($request->current_password, Auth::guard('admin')->user()->password)){
+            if($request->new_password == $request->confirm_password){
+                Admin::where('id', Auth::guard('admin')->user()->id)->update([
+                    'password' => bcrypt($request->new_password)
+                ]);
+                return redirect()->back()->with('success_message', 'Password updated successfully.');
+            }else{
+                return redirect()->back()->with('error_message', 'Confirm password does not match');
+            }
+        }else{
+            return redirect()->back()->with('error_message', 'Current password does not match');
         }
     }
 }

@@ -9,7 +9,18 @@
                     <p class="card-description">
                         Basic form layout
                     </p>
-                    <form class="forms-sample">
+                    @if(Session::has('success_message'))
+                    <div class="alert alert-success">
+                        <strong>Success! </strong>{{ Session::get('success_message') }}
+                    </div>
+                    @endif
+                    @if(Session::has('error_message'))
+                    <div class="alert alert-danger">
+                        <strong>Error! </strong>{{ Session::get('error_message') }}
+                    </div>
+                    @endif
+                    <form class="forms-sample" action="{{ route('admin.update-admin-password') }}" method="POST">
+                        @csrf
                         <div class="form-group">
                             <label for="exampleInputUsername1">Name</label>
                             <input type="text" class="form-control" value="{{ $adminDetails->name}}" readonly>
@@ -44,12 +55,6 @@
                             <label for="confirm_password">Confirm Password</label>
                             <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Confirm Password">
                         </div>
-                        <div class="form-check form-check-flat form-check-primary">
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input">
-                                Remember me
-                            </label>
-                        </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
                         <button class="btn btn-light">Cancel</button>
                     </form>
@@ -77,13 +82,13 @@
                 type: 'POST',
                 url: "{{url('admin/check-admin-password')}}",
                 data: {
-                    currentPassword : currentPassword
+                    currentPassword: currentPassword
                 },
                 success: function(response) {
                     // alert(response);
-                    if(response == "false"){
+                    if (response == "false") {
                         $('#check_current_password').html("<font color='red'>Current password not matched yet...</font>");
-                    }else if(response == "true"){
+                    } else if (response == "true") {
                         $('#check_current_password').html("<font color='green'>Current password matched. Type New Password.</font>");
                     }
                 },
