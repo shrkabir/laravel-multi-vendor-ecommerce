@@ -73,4 +73,20 @@ class AdminController extends Controller
             return redirect()->back()->with('error_message', 'Current password does not match');
         }
     }
+
+    public function editAdminDetails(){
+        return view('admin.settings.edit_admin_details');
+    }
+
+    public function updateAdminDetails(Request $request){
+        $admin= Admin::find(Auth::guard('admin')->user()->id);
+        // $admin= Admin::where('id', Auth::guard('admin')->user()->id)->update(['name' => $request->name, 'mobile' => $request->mobile]);
+        
+        $admin->update([
+            'name' => $request->name,
+            'mobile' => $request->mobile,
+        ]);
+
+        return redirect()->back()->with('success_message', 'Admin details updated successfully.');
+    }
 }
