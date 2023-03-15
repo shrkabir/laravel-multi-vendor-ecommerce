@@ -41,10 +41,16 @@
                         <div class="form-group">
                             <label for="exampleInputUsername1">Name</label>
                             <input type="text" name="name" class="form-control" value="{{ Auth::guard('admin')->user()->name }}">
+                            @error('name')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="mobile">Mobile</label>
                             <input type="text" name="mobile" class="form-control" id="mobile" value="{{ Auth::guard('admin')->user()->mobile }}" placeholder="Mobile">
+                            @error('mobile')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
                         </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
                         <button class="btn btn-light">Cancel</button>

@@ -79,6 +79,13 @@ class AdminController extends Controller
     }
 
     public function updateAdminDetails(Request $request){
+        $rules= [
+            'name' =>'required | regex:/(^([a-zA-Z]+)(\d+)?$)/u',
+            'mobile' => 'required | numeric'
+        ];
+
+        $this->validate($request, $rules);
+        
         $admin= Admin::find(Auth::guard('admin')->user()->id);
         // $admin= Admin::where('id', Auth::guard('admin')->user()->id)->update(['name' => $request->name, 'mobile' => $request->mobile]);
         
