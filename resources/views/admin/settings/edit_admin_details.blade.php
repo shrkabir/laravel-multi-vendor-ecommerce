@@ -5,7 +5,7 @@
         <div class="col-md-6 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="card-title">Update Admin Password</h4>
+                    <h4 class="card-title">Update Admin Details</h4>
                     <p class="card-description">
                         Basic form layout
                     </p>
@@ -19,7 +19,7 @@
                         <strong>Error! </strong>{{ Session::get('error_message') }}
                     </div>
                     @endif
-                    <form class="forms-sample" action="{{ route('admin.update-admin-details') }}" method="POST">
+                    <form class="forms-sample" action="{{ route('admin.update-admin-details') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="exampleInputEmail1">Admin Type</label>
@@ -40,7 +40,7 @@
                         </div>
                         <div class="form-group">
                             <label for="exampleInputUsername1">Name</label>
-                            <input type="text" name="name" class="form-control" value="{{ Auth::guard('admin')->user()->name }}">
+                            <input type="text" name="name" class="form-control" value="{{ Auth::guard('admin')->user()->name }}" placeholder="Admin Name">
                             @error('name')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
@@ -49,6 +49,13 @@
                             <label for="mobile">Mobile</label>
                             <input type="text" name="mobile" class="form-control" id="mobile" value="{{ Auth::guard('admin')->user()->mobile }}" placeholder="Mobile">
                             @error('mobile')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="photo">Photo</label>
+                            <input type="file" name="photo" class="form-control" id="photo">
+                            @error('photo')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>

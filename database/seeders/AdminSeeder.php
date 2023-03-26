@@ -22,7 +22,7 @@ class AdminSeeder extends Seeder
             'mobile' => '01025874685',
             'email' => 'admin@superadmin.com',
             'password' => '$2y$10$pQtLcLLGXfyC2EgJ8LVwKutpktzpDA/j4lwc10uf6nP4SyvXYP6zy',
-            'image' => NULL,
+            'photo' => NULL,
             'status' => 1
         ]);
     }
