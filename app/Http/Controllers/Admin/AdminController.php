@@ -105,11 +105,21 @@ class AdminController extends Controller
         $admin= Admin::find(Auth::guard('admin')->user()->id);
         // $admin= Admin::where('id', Auth::guard('admin')->user()->id)->update(['name' => $request->name, 'mobile' => $request->mobile]);
         
-        $admin->update([
-            'name'   => $request->name,
-            'mobile' => $request->mobile,
-            'photo'  => $photoName,
-        ]);
+        // $admin->update([
+        //     'name'   => $request->name,
+        //     'mobile' => $request->mobile,
+        //     'photo'  => $photoName,
+        // ]);
+
+        // dd(isset($photoName));
+
+        $admin->name = $request->name;
+        $admin->mobile = $request->mobile;
+        if(isset($photoName)){
+            $admin->photo = $photoName;
+        }
+
+        $admin->update();
 
         return redirect()->back()->with('success_message', 'Admin details updated successfully.');
     }
