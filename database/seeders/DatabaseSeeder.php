@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             AdminSeeder::class,
             VendorSeeder::class,
             VendorBusinessDetailsSeeder::class,
+            VendorBankDetailsSeeder::class,
         ]);
     }
 }
