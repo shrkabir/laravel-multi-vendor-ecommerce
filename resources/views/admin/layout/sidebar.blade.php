@@ -12,12 +12,22 @@
                             <span class="menu-title">Settings</span>
                             <i class="menu-arrow"></i>
                         </a>
+                        @if(Auth::guard('admin')->user()->type == 2)
+                        <div class="collapse" id="ui-basic">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="{{url('admin/vendor-details/update/personal')}}">Personal Details</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{url('admin/vendor-details/update/business')}}">Business Details</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{url('admin/vendor-details/update/bank')}}">Bank Details</a></li>
+                            </ul>
+                        </div>
+                        @else
                         <div class="collapse" id="ui-basic">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="{{route('admin.edit-admin-password')}}">Update Password</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('admin.edit-admin-details')}}">Update Details</a></li>
                             </ul>
                         </div>
+                        @endif
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">

@@ -123,4 +123,18 @@ class AdminController extends Controller
 
         return redirect()->back()->with('success_message', 'Admin details updated successfully.');
     }
+
+    public function updateVendorDetails($slug){
+        if($slug=="personal"){
+
+        }
+        else if($slug=="business"){
+
+        }
+        else if($slug=="bank"){
+
+        }
+
+        return view('admin.settings.update_vendor_details', compact('slug'));
+    }
 }
