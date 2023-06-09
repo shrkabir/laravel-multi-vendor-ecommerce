@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Image;
 use Illuminate\Http\Request;
 use App\Models\Admin\Admin\Admin;
+use App\Models\Admin\Vendor\Vendor;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Image;
 
 class AdminController extends Controller
 {
@@ -126,7 +127,7 @@ class AdminController extends Controller
 
     public function updateVendorDetails($slug){
         if($slug=="personal"){
-
+            $vendor= Vendor::where('id', Auth::guard('admin')->user->vendor_id)->first();
         }
         else if($slug=="business"){
 

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->integer('state_id')->index();
             $table->integer('city_id')->index();
             $table->text('address');
-            $table->string('pin_code');
+            $table->string('post_code');
             $table->string('phone')->unique();
             $table->string('email')->unique();
             $table->tinyInteger('status');

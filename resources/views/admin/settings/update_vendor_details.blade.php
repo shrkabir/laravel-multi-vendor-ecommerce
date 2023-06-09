@@ -46,6 +46,53 @@
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
+                        <div class="form-group">
+                            <label for="country_id">Country</label>
+                            <select name="country_id" id="" class="form-control">
+                                <option value="">Select Country</option>
+                                <option value="1">Bangladesh</option>
+                                <option value="2">Iceland</option>
+                            </select>
+                            @error('country_id')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="state_id">State</label>
+                            <select name="state_id" id="" class="form-control">
+                                <option value="">Select State</option>
+                                <option value="1">Dhaka</option>
+                                <option value="2">Rajshahi</option>
+                            </select>
+                            @error('state_id')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="city_id">City</label>
+                            <select name="city_id" id="" class="form-control">
+                                <option value="">Select City</option>
+                                <option value="1">Dhaka</option>
+                                <option value="2">Manikganj</option>
+                            </select>
+                            @error('city_id')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="post_code">Post Code</label>
+                            <input type="text" name="post_code" id="" class="form-control">
+                            @error('post_code')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea name="address" id="" class="form-control" cols="10" rows="3"></textarea>
+                            @error('address')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
                         <button type="submit" class="btn btn-primary mr-2">Submit</button>
                         <button class="btn btn-light">Cancel</button>
                     </form>
