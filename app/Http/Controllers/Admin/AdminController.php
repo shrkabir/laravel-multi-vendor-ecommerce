@@ -127,7 +127,7 @@ class AdminController extends Controller
 
     public function updateVendorDetails($slug){
         if($slug=="personal"){
-            $vendor= Vendor::where('id', Auth::guard('admin')->user->vendor_id)->first();
+            $vendorDetails= Vendor::where('id', Auth::guard('admin')->user()->vendor_id)->first();
         }
         else if($slug=="business"){
 
@@ -136,6 +136,6 @@ class AdminController extends Controller
 
         }
 
-        return view('admin.settings.update_vendor_details', compact('slug'));
+        return view('admin.settings.update_vendor_details', compact('slug', 'vendorDetails'));
     }
 }
