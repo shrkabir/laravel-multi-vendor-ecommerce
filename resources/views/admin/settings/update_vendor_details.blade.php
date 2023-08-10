@@ -50,8 +50,9 @@
                             <label for="country_id">Country</label>
                             <select name="country_id" id="" class="form-control">
                                 <option value="">Select Country</option>
-                                <option value="1">Bangladesh</option>
-                                <option value="2">Iceland</option>
+                                @foreach($countries as $country)
+                                <option value="{{ $country->id }}">{{$country->name}} ({{$country->code}})</option>
+                                @endforeach
                             </select>
                             @error('country_id')
                                 <span class="text-danger">{{$message}}</span>

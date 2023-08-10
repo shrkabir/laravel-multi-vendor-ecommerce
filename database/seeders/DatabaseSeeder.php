@@ -26,6 +26,9 @@ class DatabaseSeeder extends Seeder
             VendorSeeder::class,
             VendorBusinessDetailsSeeder::class,
             VendorBankDetailsSeeder::class,
+            CountriesTableSeeder::class,
+            StatesTableSeeder::class,
+            CitiesTableSeeder::class,
         ]);
     }
 }

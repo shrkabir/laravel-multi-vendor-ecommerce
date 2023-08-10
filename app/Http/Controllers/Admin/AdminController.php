@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Image;
 use Illuminate\Http\Request;
+use App\Models\Address\Country;
 use App\Models\Admin\Admin\Admin;
 use App\Models\Admin\Vendor\Vendor;
 use App\Http\Controllers\Controller;
@@ -127,6 +128,7 @@ class AdminController extends Controller
 
     public function updateVendorDetails($slug){
         if($slug=="personal"){
+            $countries= Country::all();
             $vendorDetails= Vendor::where('id', Auth::guard('admin')->user()->vendor_id)->first();
         }
         else if($slug=="business"){
@@ -136,6 +138,6 @@ class AdminController extends Controller
 
         }
 
-        return view('admin.settings.update_vendor_details', compact('slug', 'vendorDetails'));
+        return view('admin.settings.update_vendor_details', compact('slug', 'countries', 'vendorDetails'));
     }
 }

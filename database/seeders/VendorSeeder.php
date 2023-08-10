@@ -22,7 +22,7 @@ class VendorSeeder extends Seeder
             'state_id' => 1,
             'city_id' => 1,
             'address' => 'Dhaka-001',
-            'pin_code' => '00011',
+            'post_code' => '00011',
             'phone' => '01100110011',
             'email' => 'vendor@gmail.com',
             'status' => 0
