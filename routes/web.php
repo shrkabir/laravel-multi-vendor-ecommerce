@@ -44,5 +44,6 @@ Route::group(['prefix' =>'admin', 'as' =>'admin.'], function(){
         Route::post('admin-details/update', [AdminController::class, 'updateAdminDetails'])->name('update-admin-details');
         Route::match(['get', 'post'], 'vendor-details/update/{slug}', [AdminController::class, 'updateVendorDetails']);
         Route::post('get-state', [AdminController::class, 'getState'])->name('get-state');
+        Route::post('get-city', [AdminController::class, 'getCity'])->name('get-city');
     });
 });

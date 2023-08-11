@@ -69,10 +69,8 @@
                         </div>
                         <div class="form-group">
                             <label for="city_id">City</label>
-                            <select name="city_id" id="" class="form-control">
+                            <select name="city_id" id="city_id" class="form-control">
                                 <option value="">Select City</option>
-                                <option value="1">Dhaka</option>
-                                <option value="2">Manikganj</option>
                             </select>
                             @error('city_id')
                                 <span class="text-danger">{{$message}}</span>
@@ -155,9 +153,34 @@
                     $.each(data, function(key){
                         $('#state_id').append('<option value="'+data[key].id+'">'+data[key].name+'</option>');
                     });
-                    // $('#state_id').append(
-                    //     '<option value=""></option>'
-                    //     );
+                },
+
+                error: function(){
+                    alert("error");
+                }
+            });
+        });
+
+        $('#state_id').on('change', function(){
+            var stateId = $('#state_id').val();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url : "{{route('admin.get-city')}}",
+                type: 'POST',
+                data :{
+                    stateId: stateId
+                },
+
+                success: function(data){
+                    $.each(data, function(key){
+                        $('#city_id').append('<option value="'+data[key].id+'">'+data[key].name+'</option>');
+                    });
                 },
 
                 error: function(){

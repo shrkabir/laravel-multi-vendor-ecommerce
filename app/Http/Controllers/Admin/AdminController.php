@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Image;
+use App\Models\Address\City;
 use Illuminate\Http\Request;
 use App\Models\Address\State;
 use App\Models\Address\Country;
@@ -148,5 +149,13 @@ class AdminController extends Controller
         $states= State::where('country_id', $countryId)->get();
 
         return response($states);
+    }
+
+    public function getCity(Request $request){
+        $stateId= $request->stateId;
+
+        $cities= City::where('state_id', $stateId)->get();
+
+        return response($cities);
     }
 }
