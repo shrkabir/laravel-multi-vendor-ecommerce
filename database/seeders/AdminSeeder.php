@@ -34,7 +34,7 @@ class AdminSeeder extends Seeder
                 'email' => 'vendor@gmail.com',
                 'password' => '$2y$10$pQtLcLLGXfyC2EgJ8LVwKutpktzpDA/j4lwc10uf6nP4SyvXYP6zy',
                 'photo' => NULL,
-                'status' => 0
+                'status' => 1
             ]
         ]);
     }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Image;
 use Illuminate\Http\Request;
+use App\Models\Address\State;
 use App\Models\Address\Country;
 use App\Models\Admin\Admin\Admin;
 use App\Models\Admin\Vendor\Vendor;
@@ -139,5 +140,13 @@ class AdminController extends Controller
         }
 
         return view('admin.settings.update_vendor_details', compact('slug', 'countries', 'vendorDetails'));
+    }
+
+    public function getState(Request $request){
+        $countryId= $request->countryId;
+
+        $states= State::where('country_id', $countryId)->get();
+
+        return response($states);
     }
 }

@@ -19,7 +19,7 @@
                         <strong>Error! </strong>{{ Session::get('error_message') }}
                     </div>
                     @endif
-                    <form class="forms-sample" action="{{ route('admin.update-admin-details') }}" method="POST" enctype="multipart/form-data">
+                    <form class="forms-sample" action="{{ url('vendor-details/update/personal') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email address</label>
@@ -48,7 +48,7 @@
                         </div>
                         <div class="form-group">
                             <label for="country_id">Country</label>
-                            <select name="country_id" id="" class="form-control">
+                            <select name="country_id" id="country_id" class="form-control">
                                 <option value="">Select Country</option>
                                 @foreach($countries as $country)
                                 <option value="{{ $country->id }}">{{$country->name}} ({{$country->code}})</option>
@@ -60,10 +60,8 @@
                         </div>
                         <div class="form-group">
                             <label for="state_id">State</label>
-                            <select name="state_id" id="" class="form-control">
+                            <select name="state_id" id="state_id" class="form-control">
                                 <option value="">Select State</option>
-                                <option value="1">Dhaka</option>
-                                <option value="2">Rajshahi</option>
                             </select>
                             @error('state_id')
                                 <span class="text-danger">{{$message}}</span>
@@ -132,6 +130,37 @@
                     }
                 },
                 error: function() {
+                    alert("error");
+                }
+            });
+        });
+
+        $('#country_id').on('change', function(){
+            var countryId = $('#country_id').val();
+
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            $.ajax({
+                url : "{{route('admin.get-state')}}",
+                type: 'POST',
+                data :{
+                    countryId: countryId
+                },
+
+                success: function(data){
+                    $.each(data, function(key){
+                        $('#state_id').append('<option value="'+data[key].id+'">'+data[key].name+'</option>');
+                    });
+                    // $('#state_id').append(
+                    //     '<option value=""></option>'
+                    //     );
+                },
+
+                error: function(){
                     alert("error");
                 }
             });
