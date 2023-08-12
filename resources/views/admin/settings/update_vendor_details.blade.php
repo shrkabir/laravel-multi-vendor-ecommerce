@@ -7,7 +7,7 @@
                 <div class="card-body">
                     <h4 class="card-title">Update Vendor Details</h4>
                     <p class="card-description">
-                        Basic form layout
+                        Vendor's Personal Details
                     </p>
                     @if(Session::has('success_message'))
                     <div class="alert alert-success">
@@ -51,7 +51,7 @@
                             <select name="country_id" id="country_id" class="form-control">
                                 <option value="">Select Country</option>
                                 @foreach($countries as $country)
-                                <option value="{{ $country->id }}">{{$country->name}} ({{$country->code}})</option>
+                                <option value="{{ $country->id }}" {{$vendorDetails->country_id == $country->id ? 'selected': ''}}>{{$country->name}} ({{$country->code}})</option>
                                 @endforeach
                             </select>
                             @error('country_id')
@@ -62,6 +62,9 @@
                             <label for="state_id">State</label>
                             <select name="state_id" id="state_id" class="form-control">
                                 <option value="">Select State</option>
+                                @foreach($states as $state)
+                                    <option value="{{$state->state_id}}" {{$vendorDetails->state_id == $state->id ? 'selected' : ''}}>{{$state->name}}</option>
+                                @endforeach
                             </select>
                             @error('state_id')
                                 <span class="text-danger">{{$message}}</span>
@@ -71,6 +74,9 @@
                             <label for="city_id">City</label>
                             <select name="city_id" id="city_id" class="form-control">
                                 <option value="">Select City</option>
+                                @foreach($cities as $city)
+                                <option value="{{$city->id}}" {{$city->id == $vendorDetails->city_id ? 'selected' : ''}}>{{$city->name}}</option>
+                                @endforeach
                             </select>
                             @error('city_id')
                                 <span class="text-danger">{{$message}}</span>
@@ -78,14 +84,14 @@
                         </div>
                         <div class="form-group">
                             <label for="post_code">Post Code</label>
-                            <input type="text" name="post_code" id="" class="form-control">
+                            <input type="text" name="post_code" id="" class="form-control" value="{{$vendorDetails->post_code}}">
                             @error('post_code')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
                         <div class="form-group">
                             <label for="address">Address</label>
-                            <textarea name="address" id="" class="form-control" cols="10" rows="3"></textarea>
+                            <textarea name="address" id="" class="form-control" cols="10" rows="3">{{$vendorDetails->address}}</textarea>
                             @error('address')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror

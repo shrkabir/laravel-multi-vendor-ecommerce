@@ -130,8 +130,10 @@ class AdminController extends Controller
 
     public function updateVendorDetails($slug){
         if($slug=="personal"){
-            $countries= Country::all();
             $vendorDetails= Vendor::where('id', Auth::guard('admin')->user()->vendor_id)->first();
+            $countries= Country::all();
+            $states= State::where('country_id', $vendorDetails->country_id)->get();
+            $cities= City::where('state_id', $vendorDetails->state_id)->get();
         }
         else if($slug=="business"){
 
@@ -140,7 +142,7 @@ class AdminController extends Controller
 
         }
 
-        return view('admin.settings.update_vendor_details', compact('slug', 'countries', 'vendorDetails'));
+        return view('admin.settings.update_vendor_details', compact('slug', 'countries', 'states', 'cities', 'vendorDetails'));
     }
 
     public function getState(Request $request){
