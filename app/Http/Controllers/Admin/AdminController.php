@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\Address\State;
 use App\Models\Address\Country;
 use App\Models\Admin\Admin\Admin;
+use Illuminate\Support\Facades\DB;
 use App\Models\Admin\Vendor\Vendor;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -128,12 +129,59 @@ class AdminController extends Controller
         return redirect()->back()->with('success_message', 'Admin details updated successfully.');
     }
 
-    public function updateVendorDetails($slug){
+    public function updateVendorDetails($slug, Request $request){
         if($slug=="personal"){
+
             $vendorDetails= Vendor::where('id', Auth::guard('admin')->user()->vendor_id)->first();
-            $countries= Country::all();
-            $states= State::where('country_id', $vendorDetails->country_id)->get();
-            $cities= City::where('state_id', $vendorDetails->state_id)->get();
+
+            if($request->isMethod('post')){
+                $rules=[
+                    'name' => 'required|string',
+                    'mobile' => 'required',
+                    // 'photo' => 'required',
+                    'country_id' => 'required',
+                    'state_id' => 'required',
+                    'city_id' => 'required',
+                    'post_code' => 'required|string',
+                    'address' => 'required'
+                ];
+    
+                $errorMessages=[
+                    'country_id.required' => 'Country is required.',
+                    'state_id.required' => 'State is required.',
+                    'city_id.required' => 'City is required.'
+                ];
+    
+                $this->validate($request, $rules, $errorMessages);
+
+                $admin= Admin::where('id', Auth::guard('admin')->user()->id)->first();
+
+                DB::beginTransaction();
+
+                try{
+                    $admin->name = $request->name;
+                    $admin->mobile = $request->mobile;
+
+                    $admin->save();
+
+                    $vendorDetails->country_id = $request->country_id;
+                    $vendorDetails->state_id = $request->state_id;
+                    $vendorDetails->city_id = $request->city_id;
+                    $vendorDetails->post_code = $request->post_code;
+                    $vendorDetails->address = $request->address;
+
+                    $vendorDetails->save();
+
+                    DB::commit();
+
+                    return redirect()->back()->with('success_message', 'Vendor details updated successfully.');
+                }catch(\Exception $e){
+                    DB::rollback();
+                }
+            }
+                $countries= Country::all();
+                $states= State::where('country_id', $vendorDetails->country_id)->get();
+                $cities= City::where('state_id', $vendorDetails->state_id)->get();
         }
         else if($slug=="business"){
 

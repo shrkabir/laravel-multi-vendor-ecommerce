@@ -19,7 +19,7 @@
                         <strong>Error! </strong>{{ Session::get('error_message') }}
                     </div>
                     @endif
-                    <form class="forms-sample" action="{{ url('vendor-details/update/personal') }}" method="POST" enctype="multipart/form-data">
+                    <form class="forms-sample" action="{{ url('admin/vendor-details/update/personal') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="exampleInputEmail1">Email address</label>
@@ -41,7 +41,7 @@
                         </div>
                         <div class="form-group">
                             <label for="photo">Photo</label>
-                            <input type="file" name="photo" class="form-control" id="photo">
+                            <input type="file" name="photo" class="form-control" id="photo" value="{{ Auth::guard('admin')->user()->photo }}">
                             @error('photo')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
@@ -63,7 +63,7 @@
                             <select name="state_id" id="state_id" class="form-control">
                                 <option value="">Select State</option>
                                 @foreach($states as $state)
-                                    <option value="{{$state->state_id}}" {{$vendorDetails->state_id == $state->id ? 'selected' : ''}}>{{$state->name}}</option>
+                                    <option value="{{$state->id}}" {{$vendorDetails->state_id == $state->id ? 'selected' : ''}}>{{$state->name}}</option>
                                 @endforeach
                             </select>
                             @error('state_id')
