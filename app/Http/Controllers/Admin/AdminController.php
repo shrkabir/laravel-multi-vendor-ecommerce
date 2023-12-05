@@ -162,6 +162,22 @@ class AdminController extends Controller
                     $admin->name = $request->name;
                     $admin->mobile = $request->mobile;
 
+                    if($request->file('photo')){
+                        $photo= $request->file('photo');
+            
+                        if($photo->isValid()){
+                            $extension= $photo->getClientOriginalExtension();
+                            $photoName= rand(100, 999).'.'.$extension;
+                            $photoPath= 'admin/images/photos/'.$photoName;
+            
+                            Image::make($photo)->save($photoPath);
+                        }
+                    }
+
+                    if(isset($photoName)){
+                        $admin->photo = $photoName;
+                    }
+
                     $admin->save();
 
                     $vendorDetails->country_id = $request->country_id;
