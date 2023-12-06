@@ -18,9 +18,9 @@ return new class extends Migration
             $table->integer('vendor_id');
             $table->string('shop_name');
             $table->text('shop_address');
-            $table->integer('shop_country_id');
-            $table->integer('shop_state_id');
-            $table->integer('shop_city_id');
+            $table->integer('country_id');
+            $table->integer('state_id');
+            $table->integer('city_id');
             $table->string('shop_pincode');
             $table->string('shop_phone');
             $table->text('shop_website');

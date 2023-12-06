@@ -130,14 +130,14 @@
                             <input type="email" class="form-control" value="{{ $vendorDetails->shop_email }}" readonly>
                         </div>
                         <div class="form-group">
-                            <label for="exampleInputUsername1">Shop Name</label>
+                            <label for="shop_name">Shop Name</label>
                             <input type="text" name="shop_name" class="form-control" value="{{ $vendorDetails->shop_name }}" placeholder="Admin Name">
                             @error('shop_name')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="shop_phone">shop_phone</label>
+                            <label for="shop_phone">Shop Phone</label>
                             <input type="text" name="shop_phone" class="form-control" id="mobile" value="{{ $vendorDetails->shop_phone }}" placeholder="Mobile">
                             @error('shop_phone')
                                 <span class="text-danger">{{$message}}</span>
@@ -151,38 +151,38 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="shop_country_id">Country</label>
-                            <select name="shop_country_id" id="shop_country_id" class="form-control">
+                            <label for="country_id">Country</label>
+                            <select name="country_id" id="country_id" class="form-control">
                                 <option value="">Select Country</option>
                                 @foreach($countries as $country)
-                                <option value="{{ $country->id }}" {{$vendorDetails->shop_country_id == $country->id ? 'selected': ''}}>{{$country->name}} ({{$country->code}})</option>
+                                <option value="{{ $country->id }}" {{$vendorDetails->country_id == $country->id ? 'selected': ''}}>{{$country->name}} ({{$country->code}})</option>
                                 @endforeach
                             </select>
-                            @error('shop_country_id')
+                            @error('country_id')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="shop_state_id">State</label>
-                            <select name="shop_state_id" id="shop_state_id" class="form-control">
+                            <label for="state_id">State</label>
+                            <select name="state_id" id="state_id" class="form-control">
                                 <option value="">Select State</option>
                                 @foreach($states as $state)
-                                    <option value="{{$state->id}}" {{$vendorDetails->shop_state_id == $state->id ? 'selected' : ''}}>{{$state->name}}</option>
+                                    <option value="{{$state->id}}" {{$vendorDetails->state_id == $state->id ? 'selected' : ''}}>{{$state->name}}</option>
                                 @endforeach
                             </select>
-                            @error('shop_state_id')
+                            @error('state_id')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="shop_city_id">City</label>
-                            <select name="shop_city_id" id="shop_city_id" class="form-control">
+                            <label for="city_id">City</label>
+                            <select name="city_id" id="city_id" class="form-control">
                                 <option value="">Select City</option>
                                 @foreach($cities as $city)
-                                <option value="{{$city->id}}" {{$city->id == $vendorDetails->shop_city_id ? 'selected' : ''}}>{{$city->name}}</option>
+                                <option value="{{$city->id}}" {{$city->id == $vendorDetails->city_id ? 'selected' : ''}}>{{$city->name}}</option>
                                 @endforeach
                             </select>
-                            @error('shop_city_id')
+                            @error('city_id')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>

@@ -199,6 +199,46 @@ class AdminController extends Controller
         }
         else if($slug=="business"){
             $vendorDetails= VendorBusinessDetails::where('vendor_id', Auth::guard('admin')->user()->vendor_id)->first();
+            if($request->isMethod == 'post'){
+                $rules = [
+                    'shop_name' => 'required|string',
+                    'shop_phone' => 'required|numeric',
+                    'shop_website' => 'required',
+                    'country_id' => 'required',
+                    'state_id' => 'required',
+                    'city_id' => 'required',
+                    'shop_pincode' => 'required|numeric',
+                    'shop_address' => 'required',
+                    'shop_licence_number' => 'required|string',
+                ];
+
+                $errorMessages= [
+                    'shop_name.required' => 'Shop Name is required',
+                    'shop_phone.required' => 'Shop phone number is required',
+                    'shop_phone.numeric' => 'Shop phone number should be numeric',
+                    'shop_website.required' => 'Shop website is required',
+                    'country_id.required' => 'Shop country is required',
+                    'state_id.required' => 'Shop state is required',
+                    'city_id.required' => 'Shop city is required',
+                    'shop_pincode.required' => 'Shop pincode is required',
+                    'shop_address.required' => 'Shop address is required',
+                    'shop_licence_number.required' => 'Shop licence number is reqeuired'
+                ];
+
+                $this->validate($request, $rules, $errorMessages);
+
+                $vendorDetails->shop_name = $request->shop_name;
+                $vendorDetails->shop_phone = $request->shop_phone;
+                $vendorDetails->shop_website = $request->shop_website;
+                $vendorDetails->country_id = $request->country_id;
+                $vendorDetails->state_id = $request->state_id;
+                $vendorDetails->city_id = $request->city_id;
+                $vendorDetails->shop_pincode = $request->shop_pincode;
+                $vendorDetails->shop_address = $request->shop_address;
+                $vendorDetails->shop_licence_number = $request->shop_licence_number;
+
+                $vendorDetails->update();
+            }
         }
         else if($slug=="bank"){
 
