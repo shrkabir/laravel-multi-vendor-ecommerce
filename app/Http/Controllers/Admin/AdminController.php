@@ -11,6 +11,7 @@ use App\Models\Admin\Admin\Admin;
 use Illuminate\Support\Facades\DB;
 use App\Models\Admin\Vendor\Vendor;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Vendor\VendorBusinessDetails;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -195,16 +196,17 @@ class AdminController extends Controller
                     DB::rollback();
                 }
             }
-                $countries= Country::all();
-                $states= State::where('country_id', $vendorDetails->country_id)->get();
-                $cities= City::where('state_id', $vendorDetails->state_id)->get();
         }
         else if($slug=="business"){
-
+            $vendorDetails= VendorBusinessDetails::where('vendor_id', Auth::guard('admin')->user()->vendor_id)->first();
         }
         else if($slug=="bank"){
 
         }
+
+        $countries= Country::all();
+        $states= State::where('country_id', $vendorDetails->country_id)->get();
+        $cities= City::where('state_id', $vendorDetails->state_id)->get();
 
         return view('admin.settings.update_vendor_details', compact('slug', 'countries', 'states', 'cities', 'vendorDetails'));
     }
