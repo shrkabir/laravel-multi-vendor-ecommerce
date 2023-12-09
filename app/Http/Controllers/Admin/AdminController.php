@@ -198,8 +198,10 @@ class AdminController extends Controller
             }
         }
         else if($slug=="business"){
+            
             $vendorDetails= VendorBusinessDetails::where('vendor_id', Auth::guard('admin')->user()->vendor_id)->first();
-            if($request->isMethod == 'post'){
+            if($request->isMethod('post')){
+                
                 $rules = [
                     'shop_name' => 'required|string',
                     'shop_phone' => 'required|numeric',
