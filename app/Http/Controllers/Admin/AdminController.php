@@ -240,6 +240,8 @@ class AdminController extends Controller
                 $vendorDetails->shop_licence_number = $request->shop_licence_number;
 
                 $vendorDetails->update();
+
+                return redirect()->back()->with('success_message', 'Vendor business details updated successfully.');
             }
         }
         else if($slug=="bank"){
