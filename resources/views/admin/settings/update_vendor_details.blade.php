@@ -215,6 +215,73 @@
             </div>
         </div>
     </div>
+    @elseif($slug == "bank")
+    <div class="row">
+        <div class="col-md-6 grid-margin stretch-card">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Update Vendor Details</h4>
+                    <p class="card-description">
+                        Vendor's Bank Details
+                    </p>
+                    @if(Session::has('success_message'))
+                    <div class="alert alert-success">
+                        <strong>Success! </strong>{{ Session::get('success_message') }}
+                    </div>
+                    @endif
+                    @if(Session::has('error_message'))
+                    <div class="alert alert-danger">
+                        <strong>Error! </strong>{{ Session::get('error_message') }}
+                    </div>
+                    @endif
+                    <form class="forms-sample" action="{{ url('admin/vendor-details/update/bank') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Select Bank</label>
+                            <select name="bank_id" id="" class="form-control">
+                                <option value="1">Bank A</option>
+                                <option value="2">Bank B</option>
+                                <option value="3">Bank C</option>
+                                <option value="4">Bank D</option>
+                                <option value="5">Bank E</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="branch_name">Branch Name</label>
+                            <input type="text" name="branch_name" class="form-control" value="{{ $vendorDetails->branch_name }}" placeholder="Admin Name">
+                            @error('branch_name')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="account_holder_name">Account Holder Name</label>
+                            <input type="text" name="account_holder_name" class="form-control" value="{{ $vendorDetails->account_holder_name }}" placeholder="Admin Name">
+                            @error('account_holder_name')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="account_number">Account Number</label>
+                            <input type="text" name="account_number" class="form-control" value="{{ $vendorDetails->account_number }}" placeholder="Admin Name">
+                            @error('account_number')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label for="routing_number">Routing Number</label>
+                            <input type="text" name="account_holder_name" class="form-control" value="{{ $vendorDetails->routing_number }}" placeholder="Admin Name">
+                            @error('routing_number')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
+                        <button class="btn btn-light">Cancel</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     @endif
 </div>
 

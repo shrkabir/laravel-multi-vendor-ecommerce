@@ -11,6 +11,7 @@ use App\Models\Admin\Admin\Admin;
 use Illuminate\Support\Facades\DB;
 use App\Models\Admin\Vendor\Vendor;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Vendor\VendorBankDetails;
 use App\Models\Admin\Vendor\VendorBusinessDetails;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -245,7 +246,8 @@ class AdminController extends Controller
             }
         }
         else if($slug=="bank"){
-
+            $vendorDetails= VendorBankDetails::where('vendor_id', Auth::guard('admin')->user()->vendor_id)->first();
+            
         }
 
         $countries= Country::all();
