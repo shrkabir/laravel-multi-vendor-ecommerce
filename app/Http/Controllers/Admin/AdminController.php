@@ -248,6 +248,31 @@ class AdminController extends Controller
         else if($slug=="bank"){
             $vendorDetails= VendorBankDetails::where('vendor_id', Auth::guard('admin')->user()->vendor_id)->first();
             
+            if($request->isMethod('post')){
+                $rules= [
+                    'account_holder_name' => 'required',
+                    'bank_id' => 'required',
+                    'branch_name' => 'required',
+                    'account_number' => 'required',
+                    'routing_number' => 'required',
+                ];
+    
+                $errorMessages= [
+                    'bank_id.required' => 'Bank is required'
+                ];
+    
+                $this->validate($request, $rules, $errorMessages);
+                
+                $vendorDetails->account_holder_name = $request->account_holder_name;
+                $vendorDetails->bank_id = $request->bank_id;
+                $vendorDetails->branch_name = $request->branch_name;
+                $vendorDetails->account_number = $request->account_number;
+                $vendorDetails->routing_number = $request->routing_number;
+                $vendorDetails->update();
+
+            return redirect()->back()->with('success_message', 'Vendor bank details updated successfully.');
+            }
+            
         }
 
         $countries= Country::all();

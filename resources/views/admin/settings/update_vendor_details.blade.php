@@ -269,7 +269,7 @@
                         </div>
                         <div class="form-group">
                             <label for="routing_number">Routing Number</label>
-                            <input type="text" name="account_holder_name" class="form-control" value="{{ $vendorDetails->routing_number }}" placeholder="Admin Name">
+                            <input type="text" name="routing_number" class="form-control" value="{{ $vendorDetails->routing_number }}" placeholder="Admin Name">
                             @error('routing_number')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
