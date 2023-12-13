@@ -6,13 +6,13 @@
                             <span class="menu-title">Dashboard</span>
                         </a>
                     </li>
+                    @if(Auth::guard('admin')->user()->type == 2)
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
                             <i class="icon-layout menu-icon"></i>
                             <span class="menu-title">Settings</span>
                             <i class="menu-arrow"></i>
                         </a>
-                        @if(Auth::guard('admin')->user()->type == 2)
                         <div class="collapse" id="ui-basic">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="{{url('admin/vendor-details/update/personal')}}">Personal Details</a></li>
@@ -20,15 +20,36 @@
                                 <li class="nav-item"> <a class="nav-link" href="{{url('admin/vendor-details/update/bank')}}">Bank Details</a></li>
                             </ul>
                         </div>
-                        @else
+                    </li>
+                    @else
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Settings</span>
+                            <i class="menu-arrow"></i>
+                        </a>
                         <div class="collapse" id="ui-basic">
                             <ul class="nav flex-column sub-menu">
                                 <li class="nav-item"> <a class="nav-link" href="{{route('admin.edit-admin-password')}}">Update Password</a></li>
                                 <li class="nav-item"> <a class="nav-link" href="{{route('admin.edit-admin-details')}}">Update Details</a></li>
                             </ul>
                         </div>
-                        @endif
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="collapse" href="#admin-type-mgt-collapse" aria-expanded="false" aria-controls="admin-type-mgt-collapse">
+                            <i class="icon-layout menu-icon"></i>
+                            <span class="menu-title">Admin Type Management</span>
+                            <i class="menu-arrow"></i>
+                        </a>
+                        <div class="collapse" id="admin-type-mgt-collapse">
+                            <ul class="nav flex-column sub-menu">
+                                <li class="nav-item"> <a class="nav-link" href="{{route('admin.edit-admin-password')}}">Admins</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('admin.edit-admin-details')}}">Subadmins</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{route('admin.edit-admin-details')}}">Vendors</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="collapse" href="#form-elements" aria-expanded="false" aria-controls="form-elements">
                             <i class="icon-columns menu-icon"></i>
