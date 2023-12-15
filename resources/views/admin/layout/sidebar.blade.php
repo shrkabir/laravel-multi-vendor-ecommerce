@@ -43,9 +43,9 @@
                         </a>
                         <div class="collapse" id="admin-type-mgt-collapse">
                             <ul class="nav flex-column sub-menu">
-                                <li class="nav-item"> <a class="nav-link" href="{{url('admin/list/admins')}}">Admins</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="{{url('admin/list/subadmins')}}">Subadmins</a></li>
-                                <li class="nav-item"> <a class="nav-link" href="{{url('admin/list/vendors')}}">Vendors</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{url('admin/list/2')}}">Admins</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{url('admin/list/3')}}">Subadmins</a></li>
+                                <li class="nav-item"> <a class="nav-link" href="{{url('admin/list/4')}}">Vendors</a></li>
                             </ul>
                         </div>
                     </li>

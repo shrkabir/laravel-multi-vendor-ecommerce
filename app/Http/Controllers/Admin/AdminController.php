@@ -304,6 +304,6 @@ class AdminController extends Controller
         }else{
             $admins= Admin::all();
         }
-        return view('admin.admin_info.admins_list');
+        return view('admin.admin_info.admins_list', compact('type', 'admins'));
     }
 }
