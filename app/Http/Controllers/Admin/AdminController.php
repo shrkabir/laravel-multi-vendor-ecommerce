@@ -297,4 +297,13 @@ class AdminController extends Controller
 
         return response($cities);
     }
+
+    public function adminList($type=null){
+        if(!empty($type)){
+            $admins= Admin::where('type', $type)->get();
+        }else{
+            $admins= Admin::all();
+        }
+        return view('admin.admin_info.admins_list');
+    }
 }
