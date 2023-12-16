@@ -28,7 +28,7 @@ class AdminSeeder extends Seeder
             ],
             [
                 'name' => 'Vendor',
-                'type' => 2,
+                'type' => 4,
                 'vendor_id' => 1,
                 'mobile' => '01100110011',
                 'email' => 'vendor@gmail.com',

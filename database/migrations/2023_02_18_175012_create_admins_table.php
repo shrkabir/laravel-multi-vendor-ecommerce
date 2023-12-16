@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->text('password');
             $table->text('photo')->nullable();
-            $table->tinyInteger('status');
+            $table->tinyInteger('status')->comment('0= Inactive, 1= Active');
             $table->timestamps();
         });
     }
