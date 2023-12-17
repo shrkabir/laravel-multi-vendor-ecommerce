@@ -306,4 +306,8 @@ class AdminController extends Controller
         }
         return view('admin.admin_info.admins_list', compact('type', 'admins'));
     }
+
+    public function showVendorDetails($id){
+        $vendorDetails= Admin::where('vendor_id', $id)->first();
+    }
 }

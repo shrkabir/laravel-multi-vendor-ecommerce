@@ -51,12 +51,16 @@
                           <td>{{$admin->email}}</td>
                           <td>
                             @if($admin->status == 0)
-                            Inactive
+                            <span class="badge badge-danger">Inactive</span>
                             @elseif($admin->status == 1)
-                            Active
+                            <span class="badge badge-success">Active</span>
                             @endif
                           </td>
-                          <td>Action</td>
+                          <td>
+                            @if($admin->type == 4)
+                            <a href="{{route('admin.vendor-details', $admin->id)}}"><i class="mdi mdi-eye"></i></a>
+                            @endif
+                          </td>
                         </tr>
                         @endforeach
                       </tbody>

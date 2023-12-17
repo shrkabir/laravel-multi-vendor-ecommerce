@@ -46,5 +46,6 @@ Route::group(['prefix' =>'admin', 'as' =>'admin.'], function(){
         Route::post('get-state', [AdminController::class, 'getState'])->name('get-state');
         Route::post('get-city', [AdminController::class, 'getCity'])->name('get-city');
         Route::get('list/{adminType?}', [AdminController::class, 'adminList']);
+        Route::get('vendor-details/{id}', [AdminController::class, 'showVendorDetails'])->name('vendor-details');
     });
 });
