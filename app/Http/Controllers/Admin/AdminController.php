@@ -309,6 +309,7 @@ class AdminController extends Controller
 
     public function showVendorDetails($id){
         $vendorDetails= Admin::with('vendor', 'vendorBusiness', 'vendorBank')->where('id', $id)->first();
-        dd($vendorDetails);
+        
+        return view('admin.admin_info.vendor_details', compact('vendorDetails'));
     }
 }
