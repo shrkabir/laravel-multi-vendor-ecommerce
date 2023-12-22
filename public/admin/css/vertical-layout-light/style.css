@@ -30586,6 +30586,15 @@ div.tagsinput span.tag a {
   left: 30px;
 }
 
+.mdi-eye{
+  font-size: 20px;
+}
+
+.personal-details img{
+  width: 200px;
+  height: 200px;
+}
+
 @media (max-width: 991px) {
   #settings-trigger {
     display: none;

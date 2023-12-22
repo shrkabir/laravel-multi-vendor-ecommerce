@@ -2,9 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Image;
+use App\Models\Address\City;
 use Illuminate\Http\Request;
+use App\Models\Address\State;
+use App\Models\Address\Country;
 use App\Models\Admin\Admin\Admin;
+use Illuminate\Support\Facades\DB;
+use App\Models\Admin\Vendor\Vendor;
 use App\Http\Controllers\Controller;
+use App\Models\Admin\Vendor\VendorBankDetails;
+use App\Models\Admin\Vendor\VendorBusinessDetails;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -80,20 +88,228 @@ class AdminController extends Controller
 
     public function updateAdminDetails(Request $request){
         $rules= [
-            'name' =>'required | regex:/(^([a-zA-Z]+)(\d+)?$)/u',
+            // 'name' =>'required | regex:/(^([a-zA-Z]+)(\d+)?$)/u',
+            'name' =>'required | string',
             'mobile' => 'required | numeric'
         ];
 
         $this->validate($request, $rules);
+
+        //upload admin photo
+
+        if($request->file('photo')){
+            $photo= $request->file('photo');
+
+            if($photo->isValid()){
+                $extension= $photo->getClientOriginalExtension();
+                $photoName= rand(100, 999).'.'.$extension;
+                $photoPath= 'admin/images/photos/'.$photoName;
+
+                Image::make($photo)->save($photoPath);
+            }
+        }
         
         $admin= Admin::find(Auth::guard('admin')->user()->id);
         // $admin= Admin::where('id', Auth::guard('admin')->user()->id)->update(['name' => $request->name, 'mobile' => $request->mobile]);
         
-        $admin->update([
-            'name' => $request->name,
-            'mobile' => $request->mobile,
-        ]);
+        // $admin->update([
+        //     'name'   => $request->name,
+        //     'mobile' => $request->mobile,
+        //     'photo'  => $photoName,
+        // ]);
+
+        // dd(isset($photoName));
+
+        $admin->name = $request->name;
+        $admin->mobile = $request->mobile;
+        if(isset($photoName)){
+            $admin->photo = $photoName;
+        }
+
+        $admin->update();
 
         return redirect()->back()->with('success_message', 'Admin details updated successfully.');
+    }
+
+    public function updateVendorDetails($slug, Request $request){
+        if($slug=="personal"){
+
+            $vendorDetails= Vendor::where('id', Auth::guard('admin')->user()->vendor_id)->first();
+
+            if($request->isMethod('post')){
+                $rules=[
+                    'name' => 'required|string',
+                    'mobile' => 'required',
+                    // 'photo' => 'required',
+                    'country_id' => 'required',
+                    'state_id' => 'required',
+                    'city_id' => 'required',
+                    'post_code' => 'required|string',
+                    'address' => 'required'
+                ];
+    
+                $errorMessages=[
+                    'country_id.required' => 'Country is required.',
+                    'state_id.required' => 'State is required.',
+                    'city_id.required' => 'City is required.'
+                ];
+    
+                $this->validate($request, $rules, $errorMessages);
+
+                $admin= Admin::where('id', Auth::guard('admin')->user()->id)->first();
+
+                DB::beginTransaction();
+
+                try{
+                    $admin->name = $request->name;
+                    $admin->mobile = $request->mobile;
+
+                    if($request->file('photo')){
+                        $photo= $request->file('photo');
+            
+                        if($photo->isValid()){
+                            $extension= $photo->getClientOriginalExtension();
+                            $photoName= rand(100, 999).'.'.$extension;
+                            $photoPath= 'admin/images/photos/'.$photoName;
+            
+                            Image::make($photo)->save($photoPath);
+                        }
+                    }
+
+                    if(isset($photoName)){
+                        $admin->photo = $photoName;
+                    }
+
+                    $admin->save();
+
+                    $vendorDetails->country_id = $request->country_id;
+                    $vendorDetails->state_id = $request->state_id;
+                    $vendorDetails->city_id = $request->city_id;
+                    $vendorDetails->post_code = $request->post_code;
+                    $vendorDetails->address = $request->address;
+
+                    $vendorDetails->save();
+
+                    DB::commit();
+
+                    return redirect()->back()->with('success_message', 'Vendor details updated successfully.');
+                }catch(\Exception $e){
+                    DB::rollback();
+                }
+            }
+        }
+        else if($slug=="business"){
+            
+            $vendorDetails= VendorBusinessDetails::where('vendor_id', Auth::guard('admin')->user()->vendor_id)->first();
+            if($request->isMethod('post')){
+                
+                $rules = [
+                    'shop_name' => 'required|string',
+                    'shop_phone' => 'required|numeric',
+                    'shop_website' => 'required',
+                    'country_id' => 'required',
+                    'state_id' => 'required',
+                    'city_id' => 'required',
+                    'shop_pincode' => 'required|numeric',
+                    'shop_address' => 'required',
+                    'shop_licence_number' => 'required|string',
+                ];
+
+                $errorMessages= [
+                    'shop_name.required' => 'Shop Name is required',
+                    'shop_phone.required' => 'Shop phone number is required',
+                    'shop_phone.numeric' => 'Shop phone number should be numeric',
+                    'shop_website.required' => 'Shop website is required',
+                    'country_id.required' => 'Shop country is required',
+                    'state_id.required' => 'Shop state is required',
+                    'city_id.required' => 'Shop city is required',
+                    'shop_pincode.required' => 'Shop pincode is required',
+                    'shop_address.required' => 'Shop address is required',
+                    'shop_licence_number.required' => 'Shop licence number is reqeuired'
+                ];
+
+                $this->validate($request, $rules, $errorMessages);
+
+                $vendorDetails->shop_name = $request->shop_name;
+                $vendorDetails->shop_phone = $request->shop_phone;
+                $vendorDetails->shop_website = $request->shop_website;
+                $vendorDetails->country_id = $request->country_id;
+                $vendorDetails->state_id = $request->state_id;
+                $vendorDetails->city_id = $request->city_id;
+                $vendorDetails->shop_pincode = $request->shop_pincode;
+                $vendorDetails->shop_address = $request->shop_address;
+                $vendorDetails->shop_licence_number = $request->shop_licence_number;
+
+                $vendorDetails->update();
+
+                return redirect()->back()->with('success_message', 'Vendor business details updated successfully.');
+            }
+        }
+        else if($slug=="bank"){
+            $vendorDetails= VendorBankDetails::where('vendor_id', Auth::guard('admin')->user()->vendor_id)->first();
+            
+            if($request->isMethod('post')){
+                $rules= [
+                    'account_holder_name' => 'required',
+                    'bank_id' => 'required',
+                    'branch_name' => 'required',
+                    'account_number' => 'required',
+                    'routing_number' => 'required',
+                ];
+    
+                $errorMessages= [
+                    'bank_id.required' => 'Bank is required'
+                ];
+    
+                $this->validate($request, $rules, $errorMessages);
+                
+                $vendorDetails->account_holder_name = $request->account_holder_name;
+                $vendorDetails->bank_id = $request->bank_id;
+                $vendorDetails->branch_name = $request->branch_name;
+                $vendorDetails->account_number = $request->account_number;
+                $vendorDetails->routing_number = $request->routing_number;
+                $vendorDetails->update();
+
+            return redirect()->back()->with('success_message', 'Vendor bank details updated successfully.');
+            }
+            
+        }
+
+        $countries= Country::all();
+        $states= State::where('country_id', $vendorDetails->country_id)->get();
+        $cities= City::where('state_id', $vendorDetails->state_id)->get();
+
+        return view('admin.settings.update_vendor_details', compact('slug', 'countries', 'states', 'cities', 'vendorDetails'));
+    }
+
+    public function getState(Request $request){
+        $countryId= $request->countryId;
+
+        $states= State::where('country_id', $countryId)->get();
+
+        return response($states);
+    }
+
+    public function getCity(Request $request){
+        $stateId= $request->stateId;
+
+        $cities= City::where('state_id', $stateId)->get();
+
+        return response($cities);
+    }
+
+    public function adminList($type=null){
+        if(!empty($type)){
+            $admins= Admin::where('type', $type)->get();
+        }else{
+            $admins= Admin::all();
+        }
+        return view('admin.admin_info.admins_list', compact('type', 'admins'));
+    }
+
+    public function showVendorDetails($id){
+        $vendorDetails= Admin::with('vendor', 'vendorBusiness', 'vendorBank')->where('id', $id)->first();
+        
+        return view('admin.admin_info.vendor_details', compact('vendorDetails'));
     }
 }

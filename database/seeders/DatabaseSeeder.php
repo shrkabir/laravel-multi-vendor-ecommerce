@@ -23,6 +23,12 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             AdminSeeder::class,
+            VendorSeeder::class,
+            VendorBusinessDetailsSeeder::class,
+            VendorBankDetailsSeeder::class,
+            CountriesTableSeeder::class,
+            StatesTableSeeder::class,
+            CitiesTableSeeder::class,
         ]);
     }
 }

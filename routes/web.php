@@ -42,5 +42,10 @@ Route::group(['prefix' =>'admin', 'as' =>'admin.'], function(){
         Route::post('check-admin-password', [AdminController::class, 'checkAdminPassword'])->name('check-admin-pass');
         Route::get('admin-details/edit', [AdminController::class, 'editAdminDetails'])->name('edit-admin-details');
         Route::post('admin-details/update', [AdminController::class, 'updateAdminDetails'])->name('update-admin-details');
+        Route::match(['get', 'post'], '/vendor-details/update/{slug}', [AdminController::class, 'updateVendorDetails']);
+        Route::post('get-state', [AdminController::class, 'getState'])->name('get-state');
+        Route::post('get-city', [AdminController::class, 'getCity'])->name('get-city');
+        Route::get('list/{adminType?}', [AdminController::class, 'adminList']);
+        Route::get('vendor-details/{id}', [AdminController::class, 'showVendorDetails'])->name('vendor-details');
     });
 });

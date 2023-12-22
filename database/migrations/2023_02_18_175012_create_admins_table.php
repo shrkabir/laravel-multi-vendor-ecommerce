@@ -16,13 +16,13 @@ return new class extends Migration
         Schema::create('admins', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->tinyInteger('type')->comment('1=super admin');
+            $table->tinyInteger('type')->comment('1=super admin, 2=admin, 3=subadmin, 4=vendor');
             $table->tinyInteger('vendor_id')->nullable();
             $table->string('mobile');
             $table->string('email')->unique();
             $table->text('password');
-            $table->text('image')->nullable();
-            $table->tinyInteger('status');
+            $table->text('photo')->nullable();
+            $table->tinyInteger('status')->comment('0= Inactive, 1= Active');
             $table->timestamps();
         });
     }
